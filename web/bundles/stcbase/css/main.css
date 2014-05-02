@@ -1,0 +1,7 @@
+.panel {
+    width: 750px;
+    height: 550px;
+    border: 1px #000000 solid;
+    float: left;
+}
+

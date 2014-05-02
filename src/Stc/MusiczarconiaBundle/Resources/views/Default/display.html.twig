@@ -1,0 +1,27 @@
+{% extends 'StcBaseBundle::layout.html.twig' %}
+{% block title %}Studio Reservation App{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bunvdles/stcbase/css/main.css') }}" rel="stylesheet" />
+{% endblock %}
+{% block head %}
+    {{ parent() }}
+    <script>
+        $(function() {
+            $( "#datepicker" ).datepicker({
+                inline: true,
+                onSelect: function(date) {
+                    window.location = location.href+'/display/reservation?date='+date.replace(/\//g,'');
+                }
+            });
+        });
+
+    </script>
+{% endblock %}
+{% block content %}
+    <!-- Datepicker -->
+    <h2 class="demoHeaders">Datepicker</h2>
+    <div class="panel">
+        <div id="datepicker"></div>
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+# src/MusiczarconiaBundle/Resources/config/doctrine/Studio.orm.yml
+Stc\MusiczarconiaBundle\Entity\Studio:
+  type: entity
+  repositoryClass: Stc\MusiczarconiaBundle\Repository\StudioRepository
+  table: studio
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    name:
+      type: string
+      length: 255
+    code:
+      type: string
+      length: 255
+      nullable: true
+    type:
+      type: string
+      length: 255
+      nullable: true

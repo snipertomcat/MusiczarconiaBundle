@@ -1,0 +1,18 @@
+stc_musiczarconia_homepage:
+    pattern:  /
+    defaults: { _controller: StcMusiczarconiaBundle:Default:index }
+
+display_reservation:
+  pattern: /display/reservation
+  defaults: { _controller: StcMusiczarconiaBundle:Default:display }
+
+get_daily_view:
+  pattern: /display/dayview
+  defaults: { _controller: StcMusiczarconiaBundle:Default:dayview }
+  methods: [POST]
+
+show_reservation_table:
+    path: /show_reservation_table
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template:    'StcMusiczarconiaBundle:Default:reservation_table.html.twig'

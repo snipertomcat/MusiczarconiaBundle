@@ -1,0 +1,3 @@
+stc_base_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: StcBaseBundle:Default:index }

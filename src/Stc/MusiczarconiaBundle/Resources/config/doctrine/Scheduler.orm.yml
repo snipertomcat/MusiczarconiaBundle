@@ -1,0 +1,48 @@
+# src/MusiczarconiaBundle/Resources/config/doctrine/Scheduler.orm.yml
+Stc\MusiczarconiaBundle\Entity\Scheduler:
+  type: entity
+  repositoryClass: Stc\MusiczarconiaBundle\Repository\SchedulerRepository
+  table: scheduler
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    reservation_date:
+      type: date
+    reservation_time:
+      type: time
+    duration:
+      type: integer
+    notes:
+      type: text
+      nullable: true
+    confirmation_code:
+      type: string
+      length: 255
+      unique: true
+      nullable: true
+    created_at:
+      type: datetime
+    updated_at:
+      type: datetime
+      nullable: true
+    status:
+      type: integer
+  manyToOne:
+    user:
+      targetEntity: \Stc\BaseBundle\Entity\User
+      inversedBy: scheduler
+      joinColumn:
+        name: user_id
+        referencedColumnName: id
+    studio:
+      targetEntity: Studio
+      inversedBy: scheduler
+      joinColumn:
+        name: studio_id
+        referencedColumnName: id
+  lifecycleCallbacks:
+    prePersist: [ setCreatedAt, setStatusActive, createConfirmationCode, checkConflictingReservation ]
+    preUpdate: [ setUpdatedAt ]
+    postPersist: [ setStatusInactive ]

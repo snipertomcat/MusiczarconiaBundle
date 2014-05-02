@@ -1,0 +1,71 @@
+{% extends 'StcBaseBundle::layout.html.twig' %}
+{% block title %}Studio Reservation App{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/stcbase/css/main.css') }}" rel="stylesheet" />
+{% endblock %}
+{% block head %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            //set all time cells with class 'time_cell' to have a white background (for each request)
+            $('.time_cell').css('background-color','white');
+            //listen for form being submitted:
+            $('#dateSelectorForm').submit(function() {
+                //get url
+                var url=$('#dateSelectorForm').attr('action');
+
+                //start post request:
+                $.post(url, {
+                    formName:$('#dateSelectorForm').attr('id'),
+                    dateclick:$('#dateclick').attr('value'),
+                    other:"attributes"
+                }, function(data) {
+                    //response is in the data variable
+                    if(data.responseCode==200) {
+                        $.each(data.htmlContent, function(idx, obj) {
+                            $('#'+obj).css('background-color','black');
+                            //$('#'+obj).html("<span style='background-color: black;'></span> ");
+                        });
+                    } else if (data.responseCode == '') {
+                        $('#daychart').html('<h2>Bad Request</h2>');
+                        $('#daychart').css('color','red');
+                    } else {
+                        //if we get here the controller didn't return a json_encoded resposne:
+                        alert("An unexpected error occured");
+                        //UN-COMMENT THIS FOR DEBUGGING:
+                        //$('#daychart').html(data);
+                    }
+                });
+                return false;
+            });
+        });
+
+        $(function() {
+            $( "#datepicker" ).datepicker({
+                inline: true,
+                onSelect: function(date) {
+                    $('#dateclick').val(date);
+                    $('#dateSelectorForm').submit();
+                    //window.location = 'http://'+location.host+'/stcbaseapp/web/app_dev.php/display/reservation?date='+date.replace(/\//g,'');
+                }
+            });
+            return false;
+        });
+
+    </script>
+{% endblock %}
+{% block content %}
+    <!-- Datepicker -->
+    <h2 class="demoHeaders">Datepicker</h2>
+    <div class="panel">
+        <form id="dateSelectorForm" action="{{ path('get_daily_view') }}" method="post">
+            <input id="dateclick" type="hidden" name="dateclick" />
+            <div id="datepicker"></div>
+        </form>
+        <div id="daychart">
+            {#{% include 'StcMusiczarconiaBundle:Default:reservation_table.html.twig' %}#}
+            {{ render(url('show_reservation_table')) }}
+        </div>
+    </div>
+{% endblock %}
