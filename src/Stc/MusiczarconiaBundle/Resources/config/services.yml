@@ -6,3 +6,7 @@ services:
 #    stc_musiczarconia.example:
 #        class: %stc_musiczarconia.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+    stc_musiczarconia.repository.scheduler:
+        class: %stc_musiczarconia.repository.scheduler.class%
+        tags:
+            - { name: stc_repository, repository: scheduler }

@@ -6,15 +6,19 @@
 {% endblock %}
 {% block head %}
     {{ parent() }}
+    <style>
+        .cleared_cell {
+            background-color: white;
+        }
+    </style>
     <script>
         $(document).ready(function() {
-            //set all time cells with class 'time_cell' to have a white background (for each request)
-            $('.time_cell').css('background-color','white');
             //listen for form being submitted:
             $('#dateSelectorForm').submit(function() {
+                //set all <td>'s with class 'time_cell' to have a white background (for each request)
+                $("td").removeAttr('style');
                 //get url
                 var url=$('#dateSelectorForm').attr('action');
-
                 //start post request:
                 $.post(url, {
                     formName:$('#dateSelectorForm').attr('id'),

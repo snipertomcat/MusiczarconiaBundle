@@ -26,8 +26,10 @@ class DefaultController extends Controller
         $request = $this->get('request');
         $date = $request->request->get('dateclick'); //date will be in mm/dd/yyyy
 
-        $schedulerRepository = $this->getDoctrine()->getRepository('StcMusiczarconiaBundle:Scheduler');
-        $schedulerRepository->setConn($this->get('database_connection'));
+        /*$schedulerRepository = $this->getDoctrine()->getRepository('StcMusiczarconiaBundle:Scheduler');
+        $schedulerRepository->setConn($this->get('database_connection'));*/
+
+        $schedulerRepository = $this->get('stc_musiczarconia.repository.scheduler');
 
         $reservations = $schedulerRepository->findReservationByDate($date);
         $htmlClasses = array();
@@ -52,7 +54,7 @@ class DefaultController extends Controller
                 }
                 $htmlClasses[] = $studio.'_'.$timeVerticle;
             }
-        }
+    }
 
         $return = array('responseCode' => 200, 'htmlContent' => $htmlClasses);
 
