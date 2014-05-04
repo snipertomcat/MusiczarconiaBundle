@@ -6,16 +6,20 @@
 {% endblock %}
 {% block head %}
     {{ parent() }}
-    <style>
-        .cleared_cell {
-            background-color: white;
-        }
-    </style>
     <script>
         $(document).ready(function() {
+            //get the pre-populated date from the calender when the page loads:
+            if ($('#dateSelectorForm').val() == '') {
+                var currDate = new Date();
+                currDate = currDate.toLocaleDateString();
+                //alert(currDate);
+                $('#dateclick').attr('value', currDate);
+
+            }
+                //$('#dateSelectorForm').submit();
             //listen for form being submitted:
             $('#dateSelectorForm').submit(function() {
-                //set all <td>'s with class 'time_cell' to have a white background (for each request)
+                //set all <td>'s to have a white background (for each request)
                 $("td").removeAttr('style');
                 //get url
                 var url=$('#dateSelectorForm').attr('action');
@@ -61,15 +65,17 @@
 {% endblock %}
 {% block content %}
     <!-- Datepicker -->
-    <h2 class="demoHeaders">Datepicker</h2>
-    <div class="panel">
+
+    <div class="reservation_table">
         <form id="dateSelectorForm" action="{{ path('get_daily_view') }}" method="post">
             <input id="dateclick" type="hidden" name="dateclick" />
             <div id="datepicker"></div>
         </form>
-        <div id="daychart">
-            {#{% include 'StcMusiczarconiaBundle:Default:reservation_table.html.twig' %}#}
-            {{ render(url('show_reservation_table')) }}
-        </div>
+    </div>
+    <div style="float:left; ">
+    <div id="daychart" class="daychart">
+        {#{% include 'StcMusiczarconiaBundle:Default:reservation_table.html.twig' %}#}
+        {{ render(url('show_reservation_table')) }}
+    </div>
     </div>
 {% endblock %}
