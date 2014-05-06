@@ -16,3 +16,8 @@ show_reservation_table:
     defaults:
         _controller: FrameworkBundle:Template:template
         template:    'StcMusiczarconiaBundle:Default:reservation_table.html.twig'
+
+get_reservations_today:
+    path: /get_reservations_today
+    defaults: { _controller: StcMusiczarconiaBundle:Default:currentreservations }
+    methods: [POST]

@@ -15,6 +15,19 @@
                 //alert(currDate);
                 $('#dateclick').attr('value', currDate);
 
+                var request = $.ajax({
+                    url: "{{ path('get_reservations_today') }}",
+                    type: "POST",
+                    data:
+                        { formName:$('#dateSelectorForm').attr('id'),
+                          dateclick:$('#dateclick').attr('value'),
+                          other: "attributes" }
+                });
+                request.done(function(msg) {
+                    $.each(msg.htmlContent, function(idx, obj) {
+                        $('#'+obj).css('background-color','black');
+                    });
+                });
             }
                 //$('#dateSelectorForm').submit();
             //listen for form being submitted:
