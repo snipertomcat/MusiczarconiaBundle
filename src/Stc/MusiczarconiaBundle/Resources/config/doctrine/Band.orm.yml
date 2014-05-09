@@ -1,0 +1,34 @@
+# src/MusiczarconiaBundle/Resources/config/doctrine/Band.orm.yml
+Stc\MusiczarconiaBundle\Entity\Band:
+  type: entity
+  repositoryClass: Stc\MusiczarconiaBundle\Repository\BandRepository
+  table: bands
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    name:
+      type: string
+      required: true
+      length: 255
+      unique: true
+    genre:
+      type: string
+      nullable: true
+      length: 255
+    created_at:
+      type: datetime
+    updated_at:
+      type: datetime
+      nullable: true
+  manyToOne:
+    user:
+      targetEntity: \Stc\BaseBundle\Entity\User
+      inversedBy: bands
+      joinColumn:
+        name: user_id
+        referencedColumnName: id
+  lifecycleCallbacks:
+    prePersist: [ setCreatedAt ]
+    preUpdate: [ setUpdatedAt ]
