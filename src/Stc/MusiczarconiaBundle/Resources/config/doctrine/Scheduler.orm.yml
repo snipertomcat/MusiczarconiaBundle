@@ -1,48 +1,92 @@
-# src/MusiczarconiaBundle/Resources/config/doctrine/Scheduler.orm.yml
 Stc\MusiczarconiaBundle\Entity\Scheduler:
-  type: entity
-  repositoryClass: Stc\MusiczarconiaBundle\Repository\SchedulerRepository
-  table: scheduler
-  id:
+    type: entity
+    table: scheduler
+    indexes:
+        IDX_463CEC18A76ED395:
+            columns:
+                - user_id
+        IDX_463CEC18446F285F:
+            columns:
+                - studio_id
+    uniqueConstraints:
+        UNIQ_463CEC18A0E239DE:
+            columns:
+                - confirmation_code
     id:
-      type: integer
-      generator: { strategy: AUTO }
-  fields:
-    reservation_date:
-      type: date
-    reservation_time:
-      type: time
-    duration:
-      type: integer
-    notes:
-      type: text
-      nullable: true
-    confirmation_code:
-      type: string
-      length: 255
-      unique: true
-      nullable: true
-    created_at:
-      type: datetime
-    updated_at:
-      type: datetime
-      nullable: true
-    status:
-      type: integer
-  manyToOne:
-    user:
-      targetEntity: \Stc\BaseBundle\Entity\User
-      inversedBy: scheduler
-      joinColumn:
-        name: user_id
-        referencedColumnName: id
-    studio:
-      targetEntity: Studio
-      inversedBy: scheduler
-      joinColumn:
-        name: studio_id
-        referencedColumnName: id
-  lifecycleCallbacks:
-    prePersist: [ setCreatedAt, setStatusActive, createConfirmationCode, checkConflictingReservation ]
-    preUpdate: [ setUpdatedAt ]
-    postPersist: [ setStatusInactive ]
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        date:
+            type: string
+            nullable: false
+            length: 30
+            fixed: true
+            comment: ''
+        reservationTime:
+            type: time
+            nullable: false
+            comment: ''
+            column: reservation_time
+        duration:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+        notes:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        confirmationCode:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: confirmation_code
+        createdAt:
+            type: datetime
+            nullable: false
+            comment: ''
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: updated_at
+        status:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+    manyToMany:
+        studios:
+            targetEntity: Stc\MusiczarconiaBundle\Entity\Studio
+            joinTable:
+                name: scheduler_studio
+                joinColumns:
+                    scheduler_id:
+                        referenceColumnName: id
+                inverseJoinColumns:
+                    studio_id:
+                        referenceColumnName: id
+        users:
+            targetEntity: Stc\MusiczarconiaBundle\Entity\FosUser
+            joinTable:
+                name: scheduler_user
+                joinColumns:
+                    scheduler_id:
+                        referenceColumnName: id
+                inverseJoinColumns:
+                    user_id:
+                        referenceColumnName: id1
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]

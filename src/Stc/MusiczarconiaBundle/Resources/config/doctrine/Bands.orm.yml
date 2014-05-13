@@ -1,0 +1,289 @@
+Stc\MusiczarconiaBundle\Entity\Bands:
+    type: entity
+    table: bands
+    id:
+        id:
+            type: string
+            nullable: false
+            length: 36
+            fixed: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        band_name:
+            type: string
+            nullable: true
+            length: 150
+            fixed: false
+            comment: ''
+        dateEntered:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: date_entered
+        dateModified:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: date_modified
+        modifiedUserId:
+            type: string
+            nullable: true
+            length: 36
+            fixed: true
+            comment: ''
+            column: modified_user_id
+        createdBy:
+            type: string
+            nullable: true
+            length: 36
+            fixed: true
+            comment: ''
+            column: created_by
+        description:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        deleted:
+            type: boolean
+            nullable: true
+            comment: ''
+            default: '0'
+        assignedUserId:
+            type: string
+            nullable: true
+            length: 36
+            fixed: true
+            comment: ''
+            column: assigned_user_id
+        bandsBandProfileType:
+            type: string
+            nullable: true
+            length: 50
+            fixed: false
+            comment: ''
+            column: bands_band_profile_type
+        industry:
+            type: string
+            nullable: true
+            length: 50
+            fixed: false
+            comment: ''
+        annualRevenue:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: annual_revenue
+        phoneFax:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: phone_fax
+        billingAddressStreet:
+            type: string
+            nullable: true
+            length: 150
+            fixed: false
+            comment: ''
+            column: billing_address_street
+        billingAddressCity:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: billing_address_city
+        billingAddressState:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: billing_address_state
+        billingAddressPostalcode:
+            type: string
+            nullable: true
+            length: 20
+            fixed: false
+            comment: ''
+            column: billing_address_postalcode
+        billingAddressCountry:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: billing_address_country
+        rating:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+        phoneOffice:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: phone_office
+        phoneAlternate:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: phone_alternate
+        website:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+        ownership:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+        employees:
+            type: string
+            nullable: true
+            length: 10
+            fixed: false
+            comment: ''
+        tickerSymbol:
+            type: string
+            nullable: true
+            length: 10
+            fixed: false
+            comment: ''
+            column: ticker_symbol
+        shippingAddressStreet:
+            type: string
+            nullable: true
+            length: 150
+            fixed: false
+            comment: ''
+            column: shipping_address_street
+        shippingAddressCity:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: shipping_address_city
+        shippingAddressState:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: shipping_address_state
+        shippingAddressPostalcode:
+            type: string
+            nullable: true
+            length: 20
+            fixed: false
+            comment: ''
+            column: shipping_address_postalcode
+        shippingAddressCountry:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: shipping_address_country
+        twitter:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+        facebook:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+        youtube:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+        vimeo:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+        myspace:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+        reverbnation:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+        linkdin:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+        googleplus:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+        tributeto:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+        genre:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        contactIdC:
+            type: string
+            nullable: true
+            length: 36
+            fixed: true
+            comment: ''
+            column: contact_id_c
+        actType:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            default: tribute_band
+            column: act_type
+    oneToMany:
+        fosusers:
+            targetEntity: Stc\MusiczarconiaBundle\Entity\FosUser
+            mappedBy: band
+        contacts:
+            targetEntity: Stc\MusiczarconiaBundle\Entity\Contacts
+            mappedBy: band
+    lifecycleCallbacks:
+            prePersist: [ setCreatedAtValue, setCreatedByValue ]
+            preUpdate: [ setUpdatedAtValue, setModifiedUserId ]
