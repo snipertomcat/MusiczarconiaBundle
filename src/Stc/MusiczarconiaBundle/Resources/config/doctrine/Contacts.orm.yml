@@ -1,0 +1,317 @@
+Stc\MusiczarconiaBundle\Entity\Contacts:
+    type: entity
+    table: contacts
+    indexes:
+        idx_cont_last_first:
+            columns:
+                - last_name
+                - first_name
+                - deleted
+        idx_contacts_del_last:
+            columns:
+                - deleted
+                - last_name
+        idx_cont_del_reports:
+            columns:
+                - deleted
+                - reports_to_id
+                - last_name
+        idx_reports_to_id:
+            columns:
+                - reports_to_id
+        idx_del_id_user:
+            columns:
+                - deleted
+                - id
+                - assigned_user_id
+        idx_cont_assigned:
+            columns:
+                - assigned_user_id
+    id:
+        id:
+            type: string
+            nullable: false
+            length: 36
+            fixed: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        dateEntered:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: date_entered
+        dateModified:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: date_modified
+        modifiedUserId:
+            type: string
+            nullable: true
+            length: 36
+            fixed: true
+            comment: ''
+            column: modified_user_id
+        createdBy:
+            type: string
+            nullable: true
+            length: 36
+            fixed: true
+            comment: ''
+            column: created_by
+        description:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        deleted:
+            type: boolean
+            nullable: true
+            comment: ''
+            default: '0'
+        assignedUserId:
+            type: string
+            nullable: true
+            length: 36
+            fixed: true
+            comment: ''
+            column: assigned_user_id
+        salutation:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+        firstName:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: first_name
+        lastName:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: last_name
+        title:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+        department:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+        doNotCall:
+            type: boolean
+            nullable: true
+            comment: ''
+            default: '0'
+            column: do_not_call
+        phoneHome:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: phone_home
+        phoneMobile:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: phone_mobile
+        phoneWork:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: phone_work
+        phoneOther:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: phone_other
+        phoneFax:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: phone_fax
+        primaryAddressStreet:
+            type: string
+            nullable: true
+            length: 150
+            fixed: false
+            comment: ''
+            column: primary_address_street
+        primaryAddressCity:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: primary_address_city
+        primaryAddressState:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: primary_address_state
+        primaryAddressPostalcode:
+            type: string
+            nullable: true
+            length: 20
+            fixed: false
+            comment: ''
+            column: primary_address_postalcode
+        primaryAddressCountry:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: primary_address_country
+        altAddressStreet:
+            type: string
+            nullable: true
+            length: 150
+            fixed: false
+            comment: ''
+            column: alt_address_street
+        altAddressCity:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: alt_address_city
+        altAddressState:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: alt_address_state
+        altAddressPostalcode:
+            type: string
+            nullable: true
+            length: 20
+            fixed: false
+            comment: ''
+            column: alt_address_postalcode
+        altAddressCountry:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: alt_address_country
+        assistant:
+            type: string
+            nullable: true
+            length: 75
+            fixed: false
+            comment: ''
+        assistantPhone:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: assistant_phone
+        leadSource:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: lead_source
+        reportsToId:
+            type: string
+            nullable: true
+            length: 36
+            fixed: true
+            comment: ''
+            column: reports_to_id
+        birthdate:
+            type: date
+            nullable: true
+            comment: ''
+        campaignId:
+            type: string
+            nullable: true
+            length: 36
+            fixed: true
+            comment: ''
+            column: campaign_id
+        inetmapaddress:
+            type: string
+            nullable: true
+            length: 7
+            fixed: false
+            comment: ''
+        inetPrimaryLatitude:
+            type: string
+            nullable: true
+            length: 50
+            fixed: false
+            comment: ''
+            column: inet_primary_latitude
+        inetPrimaryLongitude:
+            type: string
+            nullable: true
+            length: 50
+            fixed: false
+            comment: ''
+            column: inet_primary_longitude
+        inetSecondaryLatitude:
+            type: string
+            nullable: true
+            length: 50
+            fixed: false
+            comment: ''
+            column: inet_secondary_latitude
+        inetSecondaryLongitude:
+            type: string
+            nullable: true
+            length: 50
+            fixed: false
+            comment: ''
+            column: inet_secondary_longitude
+        isGeocoded:
+            type: boolean
+            nullable: true
+            comment: ''
+            default: '0'
+            column: is_geocoded
+    manyToOne:
+        venue:
+            targetEntity: Stc\MusiczarconiaBundle\Entity\Venues
+            inversedBy: contacts
+            joinColumn:
+                name: venue_id
+                referencedColumnName: id
+    oneToMany:
+        band:
+            targetEntity: Stc\MusiczarconiaBundle\Entity\Bands
+            mappedBy: band
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue, setCreatedByValue ]
+        preUpdate: [ setUpdatedAtValue, setModifiedUserId ]

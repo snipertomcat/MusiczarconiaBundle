@@ -336,4 +336,151 @@ class Scheduler
     {
         // Add your code here
     }
+    /**
+     * @var string
+     */
+    private $date;
+
+    /**
+     * @var \DateTime
+     */
+    private $reservationTime;
+
+    /**
+     * @var string
+     */
+    private $confirmationCode;
+
+    /**
+     * @var \DateTime
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     */
+    private $updatedAt;
+
+
+    /**
+     * Set date
+     *
+     * @param string $date
+     * @return Scheduler
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return string 
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $studios;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $users;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->studios = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add studios
+     *
+     * @param \Stc\MusiczarconiaBundle\Entity\Studio $studios
+     * @return Scheduler
+     */
+    public function addStudio(\Stc\MusiczarconiaBundle\Entity\Studio $studios)
+    {
+        $this->studios[] = $studios;
+
+        return $this;
+    }
+
+    /**
+     * Remove studios
+     *
+     * @param \Stc\MusiczarconiaBundle\Entity\Studio $studios
+     */
+    public function removeStudio(\Stc\MusiczarconiaBundle\Entity\Studio $studios)
+    {
+        $this->studios->removeElement($studios);
+    }
+
+    /**
+     * Get studios
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getStudios()
+    {
+        return $this->studios;
+    }
+
+    /**
+     * Add users
+     *
+     * @param \Stc\MusiczarconiaBundle\Entity\FosUser $users
+     * @return Scheduler
+     */
+    public function addUser(\Stc\MusiczarconiaBundle\Entity\FosUser $users)
+    {
+        $this->users[] = $users;
+
+        return $this;
+    }
+
+    /**
+     * Remove users
+     *
+     * @param \Stc\MusiczarconiaBundle\Entity\FosUser $users
+     */
+    public function removeUser(\Stc\MusiczarconiaBundle\Entity\FosUser $users)
+    {
+        $this->users->removeElement($users);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        // Add your code here
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedAtValue()
+    {
+        // Add your code here
+    }
 }

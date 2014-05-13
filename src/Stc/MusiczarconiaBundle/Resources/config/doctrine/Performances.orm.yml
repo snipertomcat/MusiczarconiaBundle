@@ -1,0 +1,246 @@
+Stc\MusiczarconiaBundle\Entity\Performances:
+    type: entity
+    table: performances
+    id:
+        id:
+            type: string
+            nullable: false
+            length: 36
+            fixed: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        performance_name:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+        dateEntered:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: date_entered
+        dateModified:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: date_modified
+        modifiedUserId:
+            type: string
+            nullable: true
+            length: 36
+            fixed: true
+            comment: ''
+            column: modified_user_id
+        createdBy:
+            type: string
+            nullable: true
+            length: 36
+            fixed: true
+            comment: ''
+            column: created_by
+        description:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        deleted:
+            type: boolean
+            nullable: true
+            comment: ''
+            default: '0'
+        assignedUserId:
+            type: string
+            nullable: true
+            length: 36
+            fixed: true
+            comment: ''
+            column: assigned_user_id
+        showPerformanceType:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: show_performance_type
+        leadSource:
+            type: string
+            nullable: true
+            length: 50
+            fixed: false
+            comment: ''
+            column: lead_source
+        amount:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            comment: ''
+        amountUsdollar:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            comment: ''
+            column: amount_usdollar
+        currencyId:
+            type: string
+            nullable: true
+            length: 36
+            fixed: true
+            comment: ''
+            column: currency_id
+        dateClosed:
+            type: date
+            nullable: true
+            comment: ''
+            column: date_closed
+        nextStep:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: next_step
+        salesStage:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: sales_stage
+        probability:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            comment: ''
+        performanceDate:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: performance_date
+        performanceLength:
+            type: decimal
+            nullable: true
+            precision: 18
+            scale: 0
+            comment: ''
+            column: performance_length
+        bandId:
+            type: string
+            nullable: true
+            length: 36
+            fixed: true
+            comment: ''
+            column: band_id
+        loadInTime:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: load_in_time
+        performanceEndTime:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: performance_end_time
+        contactIdC:
+            type: string
+            nullable: true
+            length: 36
+            fixed: true
+            comment: ''
+            column: contact_id_c
+        contactId1C:
+            type: string
+            nullable: true
+            length: 36
+            fixed: true
+            comment: ''
+            column: contact_id1_c
+        mealsIncluded:
+            type: boolean
+            nullable: true
+            comment: ''
+            default: '0'
+            column: meals_included
+        performanceFee:
+            type: decimal
+            nullable: true
+            precision: 18
+            scale: 2
+            comment: ''
+            column: performance_fee
+        budget:
+            type: decimal
+            nullable: true
+            precision: 18
+            scale: 2
+            comment: ''
+        postshowcomments:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        travelComments:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: travel_comments
+        flightBudget:
+            type: decimal
+            nullable: true
+            precision: 18
+            scale: 2
+            comment: ''
+            column: flight_budget
+        rentalCarBudget:
+            type: decimal
+            nullable: true
+            precision: 18
+            scale: 2
+            comment: ''
+            column: rental_car_budget
+        hotelBudget:
+            type: decimal
+            nullable: true
+            precision: 18
+            scale: 2
+            comment: ''
+            column: hotel_budget
+        actualAttendance:
+            type: decimal
+            nullable: true
+            precision: 18
+            scale: 0
+            comment: ''
+            column: actual_attendance
+        estimatedAttendance:
+            type: decimal
+            nullable: true
+            precision: 18
+            scale: 0
+            comment: ''
+            column: estimated_attendance
+        soundCheckTime:
+            type: string
+            nullable: true
+            length: 30
+            fixed: false
+            comment: ''
+            column: sound_check_time
+        venueId:
+            type: string
+            nullable: true
+            length: 36
+            fixed: true
+            comment: ''
+            column: venue_id
+    lifecycleCallbacks: {  }
