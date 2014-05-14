@@ -12,7 +12,7 @@ Stc\MusiczarconiaBundle\Entity\Bands:
             generator:
                 strategy: IDENTITY
     fields:
-        band_name:
+        name:
             type: string
             nullable: true
             length: 150
@@ -279,11 +279,11 @@ Stc\MusiczarconiaBundle\Entity\Bands:
             column: act_type
     oneToMany:
         fosusers:
-            targetEntity: Stc\MusiczarconiaBundle\Entity\FosUser
+            targetEntity: Stc\BaseBundle\Entity\FosUser
             mappedBy: band
         contacts:
             targetEntity: Stc\MusiczarconiaBundle\Entity\Contacts
-            mappedBy: band
+            mappedBy: bands
     lifecycleCallbacks:
             prePersist: [ setCreatedAtValue, setCreatedByValue ]
             preUpdate: [ setUpdatedAtValue, setModifiedUserId ]

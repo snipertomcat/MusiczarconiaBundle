@@ -66,9 +66,16 @@ Stc\MusiczarconiaBundle\Entity\Scheduler:
             nullable: false
             unsigned: false
             comment: ''
+        user_id:
+            type: integer
+            nullable: false
+        studio_id:
+            type: integer
+            nullable: false
     manyToMany:
         studios:
             targetEntity: Stc\MusiczarconiaBundle\Entity\Studio
+            inversedBy: schedulers
             joinTable:
                 name: scheduler_studio
                 joinColumns:
@@ -78,7 +85,8 @@ Stc\MusiczarconiaBundle\Entity\Scheduler:
                     studio_id:
                         referenceColumnName: id
         users:
-            targetEntity: Stc\MusiczarconiaBundle\Entity\FosUser
+            targetEntity: Stc\BaseBundle\Entity\FosUser
+            inversedBy: schedulers
             joinTable:
                 name: scheduler_user
                 joinColumns:
@@ -86,7 +94,7 @@ Stc\MusiczarconiaBundle\Entity\Scheduler:
                         referenceColumnName: id
                 inverseJoinColumns:
                     user_id:
-                        referenceColumnName: id1
+                        referenceColumnName: id
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]
