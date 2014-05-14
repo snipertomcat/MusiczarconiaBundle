@@ -301,6 +301,12 @@ Stc\MusiczarconiaBundle\Entity\Contacts:
             comment: ''
             default: '0'
             column: is_geocoded
+        venue_id:
+            type: integer
+            nullable: true
+        band_id:
+            type: integer
+            nullable: true
     manyToOne:
         venue:
             targetEntity: Stc\MusiczarconiaBundle\Entity\Venues
@@ -308,10 +314,12 @@ Stc\MusiczarconiaBundle\Entity\Contacts:
             joinColumn:
                 name: venue_id
                 referencedColumnName: id
-    oneToMany:
-        band:
+        bands:
             targetEntity: Stc\MusiczarconiaBundle\Entity\Bands
-            mappedBy: band
+            inversedBy: contacts
+            joinColumn:
+                name: band_id
+                referencedColumnName: id
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue, setCreatedByValue ]
         preUpdate: [ setUpdatedAtValue, setModifiedUserId ]

@@ -12,7 +12,7 @@ Stc\MusiczarconiaBundle\Entity\Venues:
             generator:
                 strategy: IDENTITY
     fields:
-        venue_name:
+        name:
             type: string
             nullable: true
             length: 150

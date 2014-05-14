@@ -1,4 +1,4 @@
-Stc\MusiczarconiaBundle\Entity\FosUser:
+Stc\BaseBundle\Entity\FosUser:
     type: entity
     table: fos_user
     uniqueConstraints:
@@ -115,13 +115,16 @@ Stc\MusiczarconiaBundle\Entity\FosUser:
             nullable: true
             comment: ''
             column: date_modified
-    manyToOne:
-        band:
-            targetEntity: Stc\MusiczarconiaBundle\Entity\Bands
-            inversedBy: fosusers
-            joinColumn:
-                name: band_id
-                referencedColumnName: id
+        band_id:
+            type: integer
+            nullable: true
+#    manyToOne:
+#        band:
+#            targetEntity: Stc\MusiczarconiaBundle\Entity\Bands
+#            inversedBy: fosusers
+#            joinColumn:
+#                name: band_id
+#                referencedColumnName: id
     manyToMany:
         schedulers:
             targetEntity: Stc\MusiczarconiaBundle\Entity\Scheduler
