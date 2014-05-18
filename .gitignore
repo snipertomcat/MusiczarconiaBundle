@@ -1,3 +1,4 @@
 .idea
 vendor
 logs
+/src/Stc/BaseBundle/Entity/User.php
