@@ -77,8 +77,12 @@
     </script>
 {% endblock %}
 {% block content %}
+    <div style="margin-top: 120px">
+    {% include 'StcMusiczarconiaBundle:Default:carosel.html.twig' %}
     <!-- Datepicker -->
-
+    {% block fos_user_content %}
+        {{ parent() }}
+    {% endblock %}
     <div class="reservation_table">
         <form id="dateSelectorForm" action="{{ path('get_daily_view') }}" method="post">
             <input id="dateclick" type="hidden" name="dateclick" />
@@ -89,6 +93,37 @@
     <div id="daychart" class="daychart">
         {#{% include 'StcMusiczarconiaBundle:Default:reservation_table.html.twig' %}#}
         {{ render(url('show_reservation_table')) }}
+    </div>
+    <div id="carosel">
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="..." alt="...">
+                    <div class="carousel-caption">
+                        ...
+                    </div>
+                </div>
+                ...
+            </div>
+
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+
+    </div>
     </div>
     </div>
 {% endblock %}
