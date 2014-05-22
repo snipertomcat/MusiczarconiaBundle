@@ -1,26 +1,6 @@
-<style>
-/*    #feedback { font-size: 1.4em; }
-    #selectable .ui-selecting { background: #FECA40; }
-    #selectable .ui-selected { background: #F39814; color: white; }
-    #selectable { list-style-type: none; margin: 0; padding: 0; width: 450px; }
-    #selectable { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }*/
-</style>
-<script>
-    //$('#selectable').selectable({});
-/*    $(function() {
-        $( "#selectable" ).selectable({
-            stop: function() {
-                var result = $( "#select-result" ).empty();
-                $( ".time_cell", this ).each(function() {
-                    var index = $( "#selectable td" ).index( this );
-                    result.append( " #" + ( index + 1 ) );
-                });
-            }
-        });
-    });*/
-</script>
-<ol id="selectable">
-<table border="1" class="table">
+<div id="res_table">
+<table border="1" class="table table-hover table-condensed table-bordered" style="font-weight: bold">
+    <tr style="background-color: #F7AF39; color: white"><td colspan="4" style="text-align: center"><b>Reservations for Today {{ "now"|date("m/d/y") }}</b></td></tr>
     <tr class=''><td>		        </td>	<td>Studio1</td>			                <td>Studio2</td>			                <td>Studio3</td>                         </tr>
     <tr class=''><td>	12:00 PM	</td>	<td	 class='' id='1_1200'>	</td>	<td	 class='' id='2_1200'>	</td>	<td	 class='' id='3_1200'>	</td></tr>
     <tr class=''><td>	12:30 PM	</td>	<td	 class='' id='1_1230'>	</td>	<td	 class='' id='2_1230'>	</td>	<td	 class='' id='3_1230'>	</td></tr>
@@ -48,4 +28,4 @@
     <tr class=''><td>	11:30 PM	</td>	<td	 class='' id='1_1130'>	</td>	<td	 class='' id='2_1130'>	</td>	<td	 class='' id='3_1130'>	</td></tr>
 
 </table>
-</ol>
+</div>

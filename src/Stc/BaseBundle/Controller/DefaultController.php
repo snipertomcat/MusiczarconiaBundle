@@ -13,4 +13,11 @@ class DefaultController extends Controller
 
         return $this->render('StcBaseBundle:Default:index.html.twig', $page_data);
     }
+
+    public function splashAction()
+    {
+        $page_data = array();
+
+        return $this->render('StcBaseBundle:Default:splash.html.twig', $page_data);
+    }
 }

@@ -1,3 +1,7 @@
+body {
+    background: lightslategrey;
+}
+
 .panel {
     width: 750px;
     height: 550px;
@@ -13,4 +17,24 @@
 .daychart {
     float:left;
     margin-top: 100px;
+
+}
+
+#res_table {
+    width: 400px;
+    height: 400px;
+    overflow-y:scroll;
+    margin-left:5em;
+    padding-bottom:1px;
+    background: white;
+}
+
+.headCol {
+    position:absolute;
+    width:5em;
+    left:0;
+    top:auto;
+    border-right: 0px none black;
+    border-top-width:3px;
+    margin-top:-3px;
 }
