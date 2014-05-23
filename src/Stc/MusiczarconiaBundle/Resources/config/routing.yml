@@ -21,3 +21,7 @@ get_reservations_today:
     path: /get_reservations_today
     defaults: { _controller: StcMusiczarconiaBundle:Default:currentreservations }
     methods: [POST]
+
+stc_musiczarconia_studios:
+    path: /studios
+    defaults: { _controller: StcMusiczarconiaBundle:Default:studios }

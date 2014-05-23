@@ -9,8 +9,18 @@ security:
     providers:
         fos_userbundle:
             id: fos_user.user_provider.username
+        administrators:
+            entity: { class: StcBaseBundle:FosUser, property: username }
 
     firewalls:
+        admin:
+            pattern: ^/admin
+            form_login:
+                provider: fos_userbundle
+                csrf_provider: form.csrf_provider
+                check_path: login_check
+            logout: true
+            anonymous: false
         main:
             pattern: ^/
             form_login:
@@ -24,8 +34,13 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/band_profile/', role: ROLE_USER }
+        - { path: ^/venue_profile/', role: ROLE_USER }
 
     role_hierarchy:
       ROLE_ADMIN:       ROLE_USER
       ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+      ROLE_BAND:        ROLE USER
+      ROLE_VENUE:       ROLE USER
+      ROLE_PROMOTER:    ROLE USER
 

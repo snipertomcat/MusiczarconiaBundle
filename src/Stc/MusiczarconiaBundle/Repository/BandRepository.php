@@ -12,4 +12,22 @@ use Doctrine\ORM\EntityRepository;
  */
 class BandRepository extends EntityRepository
 {
+    public function getBandId($search)
+    {
+        $res = $this->findBy('%'.$search.'%',null,1);
+        if (!empty($res)) {
+            return $res['id'];
+        }
+        return false;
+    }
+
+    public function findRelatedShows($bandId)
+    {
+        $qb = $this->createQueryBuilder('qb')
+                   ->select('*')
+                   ->from('performances','p')
+                   ->where('band_id = '.$bandId)
+                   ->getQuery();
+
+    }
 }

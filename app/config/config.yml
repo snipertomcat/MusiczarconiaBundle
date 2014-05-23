@@ -72,3 +72,8 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Stc\BaseBundle\Entity\FosUser
+    profile:
+            form:
+                type:               fos_user_profile
+                name:               fos_user_profile_form
+                validation_groups:  [Profile, Default]
