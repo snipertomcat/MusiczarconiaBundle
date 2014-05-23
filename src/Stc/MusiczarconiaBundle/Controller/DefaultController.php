@@ -118,4 +118,10 @@ class DefaultController extends Controller
         return new Response($return, 200, array('Content-Type' => 'application/json'));
 
     }
+
+    public function studiosAction()
+    {
+
+        return $this->render('@StcMusiczarconia/Default/studios.html.twig');
+    }
 }

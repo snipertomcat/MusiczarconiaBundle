@@ -1,24 +1,104 @@
 {% extends "StcBaseBundle::layout.html.twig" %}
 
-{% trans_default_domain 'FOSUserBundle' %}
-
 {% block fos_user_content %}
     {% if error %}
         <div>{{ error|trans }}</div>
     {% endif %}
+{#<div class="panel" style="height: 200px; width: 200px;">
+    <b>Login</b>
+    <div class="panel panel-body" style="height: 200px; width: 200px">
+        <form action="{{ path("fos_user_security_check") }}" method="post">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
-    <form action="{{ path("fos_user_security_check") }}" method="post">
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+            <label for="username">Username</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+            <br />
+            <label for="password">Password</label>
+            <input type="password" id="password" name="_password" required="required" />
+            <br />
+            <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+            <label for="remember_me">Remember Me?</label>
+            <br />
+            <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+        </form>
+    </div>
+</div>#}
+    {#<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content"></div>
+        </div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3 class="">Modal header</h3>
 
-        <label for="username">{{ 'security.login.username'|trans }}</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+                </div>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h1 class="text-center">Login</h1>
 
-        <label for="password">{{ 'security.login.password'|trans }}</label>
-        <input type="password" id="password" name="_password" required="required" />
+                </div>
+                <div class="modal-body">
+                    <p class="">My modal content here…</p>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input class="form-control input-lg" placeholder="Email" type="text">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control input-lg" placeholder="Password" type="password">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-lg btn-block">Sign In</button> <span class="pull-right"><a href="#" class="">Register</a></span>
+                    <span class=""><a href="#" class="">Need help?</a>
+                        </span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-md-12">
+                        <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>#}
+    <!--login modal-->
+    <div id="loginModal" class="" tabindex="-1" role="dialog" aria-hidden="true">
 
-        <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-        <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="">Login</h3>
 
-        <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
-    </form>
+                </div>
+                <form action="{{ path("fos_user_security_check") }}" method="post">
+                    <div class="modal-body">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input class="form-control input-lg" type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input class="form-control input-lg" type="password" id="password" name="_password" required="required" />
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-lg btn-block">Sign In</button>
+                        </div>
+                        <input type="checkbox" id="remember_me" name="_remember_me" value="on" />    Remember Me
+                        <div class="form-group">
+                            <span class="pull-right"><a href="{{ url('fos_user_registration_register') }}" class="">Register</a></span>
+                        <span class=""><a href="#" class="">Need help?</a>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
 {% endblock fos_user_content %}

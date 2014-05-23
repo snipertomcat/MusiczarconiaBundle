@@ -17,6 +17,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Stc\BaseBundle\StcBaseBundle(),
+            new Stc\UserBundle\StcUserBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Stc\MusiczarconiaBundle\StcMusiczarconiaBundle(),
         );

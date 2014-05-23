@@ -3,11 +3,13 @@
 namespace Stc\BaseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use FOS\UserBundle\Model\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use FOS\UserBundle\Model\GroupInterface;
 /**
  * FosUser
  */
-class FosUser
+class FosUser implements AdvancedUserInterface
 {
     /**
      * @var integer
@@ -125,7 +127,7 @@ class FosUser
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -148,7 +150,7 @@ class FosUser
     /**
      * Get username
      *
-     * @return string 
+     * @return string
      */
     public function getUsername()
     {
@@ -171,7 +173,7 @@ class FosUser
     /**
      * Get usernameCanonical
      *
-     * @return string 
+     * @return string
      */
     public function getUsernameCanonical()
     {
@@ -194,7 +196,7 @@ class FosUser
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -217,7 +219,7 @@ class FosUser
     /**
      * Get emailCanonical
      *
-     * @return string 
+     * @return string
      */
     public function getEmailCanonical()
     {
@@ -240,7 +242,7 @@ class FosUser
     /**
      * Get enabled
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getEnabled()
     {
@@ -263,7 +265,7 @@ class FosUser
     /**
      * Get salt
      *
-     * @return string 
+     * @return string
      */
     public function getSalt()
     {
@@ -286,7 +288,7 @@ class FosUser
     /**
      * Get password
      *
-     * @return string 
+     * @return string
      */
     public function getPassword()
     {
@@ -309,7 +311,7 @@ class FosUser
     /**
      * Get lastLogin
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getLastLogin()
     {
@@ -332,7 +334,7 @@ class FosUser
     /**
      * Get locked
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getLocked()
     {
@@ -355,7 +357,7 @@ class FosUser
     /**
      * Get expired
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getExpired()
     {
@@ -378,7 +380,7 @@ class FosUser
     /**
      * Get expiresAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getExpiresAt()
     {
@@ -401,7 +403,7 @@ class FosUser
     /**
      * Get confirmationToken
      *
-     * @return string 
+     * @return string
      */
     public function getConfirmationToken()
     {
@@ -424,7 +426,7 @@ class FosUser
     /**
      * Get passwordRequestedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getPasswordRequestedAt()
     {
@@ -447,7 +449,7 @@ class FosUser
     /**
      * Get roles
      *
-     * @return array 
+     * @return array
      */
     public function getRoles()
     {
@@ -470,7 +472,7 @@ class FosUser
     /**
      * Get credentialsExpired
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getCredentialsExpired()
     {
@@ -493,7 +495,7 @@ class FosUser
     /**
      * Get credentialsExpireAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCredentialsExpireAt()
     {
@@ -516,7 +518,7 @@ class FosUser
     /**
      * Get dateEntered
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateEntered()
     {
@@ -539,7 +541,7 @@ class FosUser
     /**
      * Get dateModified
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateModified()
     {
@@ -562,7 +564,7 @@ class FosUser
     /**
      * Get band
      *
-     * @return \Stc\MusiczarconiaBundle\Entity\Bands 
+     * @return \Stc\MusiczarconiaBundle\Entity\Bands
      */
     public function getBand()
     {
@@ -595,7 +597,7 @@ class FosUser
     /**
      * Get schedulers
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getSchedulers()
     {
@@ -638,10 +640,90 @@ class FosUser
     /**
      * Get band_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getBandId()
     {
         return $this->band_id;
+    }
+
+    public function isAccountNonExpired()
+    {
+        return $this->isCredentialsNonExpired();
+    }
+
+    public function isAccountNonLocked()
+    {
+        return (!$this->getLocked());
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return (!$this->getCredentialsExpired());
+    }
+
+    public function isEnabled()
+    {
+        return $this->getEnabled();
+    }
+
+    public function eraseCredentials()
+    {
+
+    }
+
+    public function isPasswordRequestNonExpired($ttl)
+    {
+        return $this->getPasswordRequestedAt() instanceof \DateTime &&
+        $this->getPasswordRequestedAt()->getTimestamp() + $ttl > time();
+    }
+
+
+    /**
+     * Gets the groups granted to the user.
+     *
+     * @return Collection
+     */
+    public function getGroups()
+    {
+        return $this->groups ?: $this->groups = new ArrayCollection();
+    }
+
+    public function getGroupNames()
+    {
+        $names = array();
+        foreach ($this->getGroups() as $group) {
+            $names[] = $group->getName();
+        }
+
+        return $names;
+    }
+
+    public function hasGroup($name)
+    {
+        return in_array($name, $this->getGroupNames());
+    }
+
+    public function addGroup(GroupInterface $group)
+    {
+        if (!$this->getGroups()->contains($group)) {
+            $this->getGroups()->add($group);
+        }
+
+        return $this;
+    }
+
+    public function removeGroup(GroupInterface $group)
+    {
+        if ($this->getGroups()->contains($group)) {
+            $this->getGroups()->removeElement($group);
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return (string) $this->getUsername();
     }
 }
