@@ -1,127 +1,154 @@
 <?php
 
-namespace Stc\BaseBundle\Entity;
+namespace Stc\UserBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use FOS\UserBundle\Model\GroupInterface;
+use Stc\UserBundle\Entity\Role;
+use FOS\UserBundle\Model\User as AbstractUser;
+use Stc\MusiczarconiaBundle\Entity\Bands;
+
 /**
  * FosUser
+ *
  */
-class FosUser implements AdvancedUserInterface
+class User implements UserInterface
 {
     /**
      * @var integer
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      */
-    private $username;
+    protected $username;
 
     /**
      * @var string
      */
-    private $usernameCanonical;
+    protected $usernameCanonical;
 
     /**
      * @var string
      */
-    private $email;
+    protected $email;
 
     /**
      * @var string
      */
-    private $emailCanonical;
+    protected $emailCanonical;
 
     /**
      * @var boolean
      */
-    private $enabled;
+    protected $enabled;
 
     /**
      * @var string
      */
-    private $salt;
+    protected $salt;
 
     /**
      * @var string
      */
-    private $password;
+    protected $password;
+
+    /**
+     * @var string
+     */
+    protected $plainPassword;
 
     /**
      * @var \DateTime
      */
-    private $lastLogin;
+    protected $lastLogin;
 
     /**
      * @var boolean
      */
-    private $locked;
+    protected $locked;
 
     /**
      * @var boolean
      */
-    private $expired;
+    protected $expired;
 
     /**
      * @var \DateTime
      */
-    private $expiresAt;
+    protected $expiresAt;
 
     /**
      * @var string
      */
-    private $confirmationToken;
+    protected $confirmationToken;
 
     /**
      * @var \DateTime
      */
-    private $passwordRequestedAt;
+    protected $passwordRequestedAt;
 
     /**
      * @var array
      */
-    private $roles;
+    protected $roles;
+
+    protected $role;
 
     /**
      * @var boolean
      */
-    private $credentialsExpired;
+    protected $credentialsExpired;
 
     /**
      * @var \DateTime
      */
-    private $credentialsExpireAt;
+    protected $credentialsExpireAt;
 
     /**
      * @var \DateTime
      */
-    private $dateEntered;
+    protected $dateEntered;
 
     /**
      * @var \DateTime
      */
-    private $dateModified;
+    protected $dateModified;
 
     /**
      * @var \Stc\MusiczarconiaBundle\Entity\Bands
      */
-    private $band;
+    protected $band;
+
+    /**
+     * @var string
+     */
+    protected $band_id;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $schedulers;
+    protected $schedulers;
 
     /**
      * Constructor
      */
     public function __construct()
     {
+        //parent::__construct();
         $this->schedulers = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->roles = new ArrayCollection();
+        $this->roles->add('ROLE_USER');
+        $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
+        $this->enabled = false;
+        $this->locked = false;
+        $this->expired = false;
+        $this->credentialsExpired = false;
+        $this->dateEntered = new \DateTime("now");
     }
 
     /**
@@ -138,7 +165,7 @@ class FosUser implements AdvancedUserInterface
      * Set username
      *
      * @param string $username
-     * @return FosUser
+     * @return User
      */
     public function setUsername($username)
     {
@@ -161,7 +188,7 @@ class FosUser implements AdvancedUserInterface
      * Set usernameCanonical
      *
      * @param string $usernameCanonical
-     * @return FosUser
+     * @return User
      */
     public function setUsernameCanonical($usernameCanonical)
     {
@@ -184,7 +211,7 @@ class FosUser implements AdvancedUserInterface
      * Set email
      *
      * @param string $email
-     * @return FosUser
+     * @return User
      */
     public function setEmail($email)
     {
@@ -207,7 +234,7 @@ class FosUser implements AdvancedUserInterface
      * Set emailCanonical
      *
      * @param string $emailCanonical
-     * @return FosUser
+     * @return User
      */
     public function setEmailCanonical($emailCanonical)
     {
@@ -230,7 +257,7 @@ class FosUser implements AdvancedUserInterface
      * Set enabled
      *
      * @param boolean $enabled
-     * @return FosUser
+     * @return User
      */
     public function setEnabled($enabled)
     {
@@ -253,7 +280,7 @@ class FosUser implements AdvancedUserInterface
      * Set salt
      *
      * @param string $salt
-     * @return FosUser
+     * @return User
      */
     public function setSalt($salt)
     {
@@ -276,7 +303,7 @@ class FosUser implements AdvancedUserInterface
      * Set password
      *
      * @param string $password
-     * @return FosUser
+     * @return User
      */
     public function setPassword($password)
     {
@@ -299,9 +326,9 @@ class FosUser implements AdvancedUserInterface
      * Set lastLogin
      *
      * @param \DateTime $lastLogin
-     * @return FosUser
+     * @return User
      */
-    public function setLastLogin($lastLogin)
+    public function setLastLogin(\DateTime $lastLogin=null)
     {
         $this->lastLogin = $lastLogin;
 
@@ -322,7 +349,7 @@ class FosUser implements AdvancedUserInterface
      * Set locked
      *
      * @param boolean $locked
-     * @return FosUser
+     * @return User
      */
     public function setLocked($locked)
     {
@@ -345,7 +372,7 @@ class FosUser implements AdvancedUserInterface
      * Set expired
      *
      * @param boolean $expired
-     * @return FosUser
+     * @return User
      */
     public function setExpired($expired)
     {
@@ -368,9 +395,9 @@ class FosUser implements AdvancedUserInterface
      * Set expiresAt
      *
      * @param \DateTime $expiresAt
-     * @return FosUser
+     * @return User
      */
-    public function setExpiresAt($expiresAt)
+    public function setExpiresAt(\DateTime $expiresAt=null)
     {
         $this->expiresAt = $expiresAt;
 
@@ -391,7 +418,7 @@ class FosUser implements AdvancedUserInterface
      * Set confirmationToken
      *
      * @param string $confirmationToken
-     * @return FosUser
+     * @return User
      */
     public function setConfirmationToken($confirmationToken)
     {
@@ -414,9 +441,9 @@ class FosUser implements AdvancedUserInterface
      * Set passwordRequestedAt
      *
      * @param \DateTime $passwordRequestedAt
-     * @return FosUser
+     * @return User
      */
-    public function setPasswordRequestedAt($passwordRequestedAt)
+    public function setPasswordRequestedAt(\DateTime $passwordRequestedAt = null)
     {
         $this->passwordRequestedAt = $passwordRequestedAt;
 
@@ -437,11 +464,11 @@ class FosUser implements AdvancedUserInterface
      * Set roles
      *
      * @param array $roles
-     * @return FosUser
+     * @return User
      */
-    public function setRoles($roles)
+    public function setRoles(array $roles)
     {
-        $this->roles = $roles;
+        $this->roles[] = $roles;
 
         return $this;
     }
@@ -460,7 +487,7 @@ class FosUser implements AdvancedUserInterface
      * Set credentialsExpired
      *
      * @param boolean $credentialsExpired
-     * @return FosUser
+     * @return User
      */
     public function setCredentialsExpired($credentialsExpired)
     {
@@ -483,9 +510,9 @@ class FosUser implements AdvancedUserInterface
      * Set credentialsExpireAt
      *
      * @param \DateTime $credentialsExpireAt
-     * @return FosUser
+     * @return User
      */
-    public function setCredentialsExpireAt($credentialsExpireAt)
+    public function setCredentialsExpireAt(\DateTime $credentialsExpireAt=null)
     {
         $this->credentialsExpireAt = $credentialsExpireAt;
 
@@ -506,7 +533,7 @@ class FosUser implements AdvancedUserInterface
      * Set dateEntered
      *
      * @param \DateTime $dateEntered
-     * @return FosUser
+     * @return User
      */
     public function setDateEntered($dateEntered)
     {
@@ -529,7 +556,7 @@ class FosUser implements AdvancedUserInterface
      * Set dateModified
      *
      * @param \DateTime $dateModified
-     * @return FosUser
+     * @return User
      */
     public function setDateModified($dateModified)
     {
@@ -552,11 +579,12 @@ class FosUser implements AdvancedUserInterface
      * Set band
      *
      * @param \Stc\MusiczarconiaBundle\Entity\Bands $band
-     * @return FosUser
+     * @return User
      */
     public function setBand(\Stc\MusiczarconiaBundle\Entity\Bands $band = null)
     {
         $this->band = $band;
+        $this->band_id = $band->getId();
 
         return $this;
     }
@@ -575,7 +603,7 @@ class FosUser implements AdvancedUserInterface
      * Add schedulers
      *
      * @param \Stc\MusiczarconiaBundle\Entity\Scheduler $schedulers
-     * @return FosUser
+     * @return User
      */
     public function addScheduler(\Stc\MusiczarconiaBundle\Entity\Scheduler $schedulers)
     {
@@ -618,17 +646,13 @@ class FosUser implements AdvancedUserInterface
     {
         // Add your code here
     }
-    /**
-     * @var integer
-     */
-    private $band_id;
 
 
     /**
      * Set band_id
      *
      * @param integer $bandId
-     * @return FosUser
+     * @return User
      */
     public function setBandId($bandId)
     {
@@ -704,6 +728,14 @@ class FosUser implements AdvancedUserInterface
         return in_array($name, $this->getGroupNames());
     }
 
+    public function hasRole($role)
+    {
+        if (in_array($role, $this->roles)) {
+            return true;
+        }
+        return false;
+    }
+
     public function addGroup(GroupInterface $group)
     {
         if (!$this->getGroups()->contains($group)) {
@@ -725,5 +757,128 @@ class FosUser implements AdvancedUserInterface
     public function __toString()
     {
         return (string) $this->getUsername();
+    }
+
+    /**
+     * Serializes the user.
+     *
+     * The serialized data have to contain the fields used by the equals method and the username.
+     *
+     * @return string
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->password,
+            $this->salt,
+            $this->usernameCanonical,
+            $this->username,
+            $this->expired,
+            $this->locked,
+            $this->credentialsExpired,
+            $this->enabled,
+            $this->id,
+            $this->roles
+        ));
+    }
+
+    /**
+     * Unserializes the user.
+     *
+     * @param string $serialized
+     */
+    public function unserialize($serialized)
+    {
+        $data = unserialize($serialized);
+        // add a few extra elements in the array to ensure that we have enough keys when unserializing
+        // older data which does not include all properties.
+        $data = array_merge($data, array_fill(0, 2, null));
+
+        list(
+            $this->password,
+            $this->salt,
+            $this->usernameCanonical,
+            $this->username,
+            $this->expired,
+            $this->locked,
+            $this->credentialsExpired,
+            $this->enabled,
+            $this->id,
+            $this->roles
+
+            ) = $data;
+    }
+
+
+    /**
+     * Add role
+     *
+     * @param $role
+     * @return
+     */
+    public function addRole($role)
+    {
+        $role = strtoupper($role);
+        if (!in_array($role, $this->roles)) {
+            $this->roles[] = $role;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove role
+     *
+     */
+    public function removeRole($role)
+    {
+        $role = strtoupper($role);
+        if (in_array($role, $this->roles)) {
+            unset($this->roles[$role]);
+        }
+        return $this;
+    }
+
+    /**
+     * Get role
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRole()
+    {
+        return $this->roles;
+    }
+
+    public function setSuperAdmin($boolean)
+    {
+        if (true === $boolean) {
+            $this->addRole(static::ROLE_SUPER_ADMIN);
+        } else {
+            $this->removeRole(static::ROLE_SUPER_ADMIN);
+        }
+
+        return $this;
+    }
+
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
+
+        return $this;
+    }
+
+    public function isUser(UserInterface $user = null)
+    {
+        return null !== $user && $this->getId() === $user->getId();
+    }
+
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    public function isSuperAdmin()
+    {
+        return $this->hasRole(static::ROLE_SUPER_ADMIN);
     }
 }

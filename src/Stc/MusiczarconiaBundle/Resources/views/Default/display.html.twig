@@ -14,6 +14,10 @@
                     window.location = location.href+'/display/reservation?date='+date.replace(/\//g,'');
                 }
             });
+            $( "#selectable").selectable();
+            $( "#selectable2").selectable();
+            $( "#selectable3").selectable();
+            $( ".header-no-select" ).selectable( "disable" );
         });
 
     </script>

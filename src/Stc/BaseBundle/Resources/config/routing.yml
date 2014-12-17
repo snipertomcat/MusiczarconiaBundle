@@ -1,3 +1,7 @@
 stc_base_homepage:
     pattern:  /splash
     defaults: { _controller: StcBaseBundle:Default:splash }
+
+stc_base_profile:
+    pattern: /my_profile
+    defaults: { _controller: StcBaseBundle:Default:profile }

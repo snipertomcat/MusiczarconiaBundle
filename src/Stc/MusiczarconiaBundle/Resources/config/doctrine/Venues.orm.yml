@@ -237,10 +237,6 @@ Stc\MusiczarconiaBundle\Entity\Venues:
             scale: 2
             comment: ''
             column: avg_ticket_price
-    oneToMany:
-        contacts:
-            targetEntity: Stc\MusiczarconiaBundle\Entity\Contacts
-            mappedBy: venue
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue, setCreatedByValue ]
         preUpdate: [ setUpdatedAtValue, setModifiedUserId ]

@@ -279,7 +279,7 @@ Stc\MusiczarconiaBundle\Entity\Bands:
             column: act_type
     oneToMany:
         fosusers:
-            targetEntity: Stc\BaseBundle\Entity\FosUser
+            targetEntity: Stc\UserBundle\Entity\User
             mappedBy: band
         contacts:
             targetEntity: Stc\MusiczarconiaBundle\Entity\Contacts

@@ -359,10 +359,10 @@ class Scheduler
     /**
      * Add users
      *
-     * @param \Stc\BaseBundle\Entity\FosUser $users
+     * @param \Stc\UserBundle\Entity\User $users
      * @return Scheduler
      */
-    public function addUser(\Stc\BaseBundle\Entity\FosUser $users)
+    public function addUser(\Stc\UserBundle\Entity\User $users)
     {
         $this->users[] = $users;
 
@@ -372,9 +372,9 @@ class Scheduler
     /**
      * Remove users
      *
-     * @param \Stc\BaseBundle\Entity\FosUser $users
+     * @param \Stc\UserBundle\Entity\User $users
      */
-    public function removeUser(\Stc\BaseBundle\Entity\FosUser $users)
+    public function removeUser(\Stc\UserBundle\Entity\User $users)
     {
         $this->users->removeElement($users);
     }

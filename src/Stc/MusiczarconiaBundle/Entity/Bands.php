@@ -3,6 +3,7 @@
 namespace Stc\MusiczarconiaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Stc\UserBundle\Entity\User;
 
 /**
  * Bands
@@ -1194,10 +1195,10 @@ class Bands
     /**
      * Add fosusers
      *
-     * @param \Stc\BaseBundle\Entity\FosUser $fosusers
+     * @param \Stc\UserBundle\Entity\User $fosusers
      * @return Bands
      */
-    public function addFosuser(\Stc\BaseBundle\Entity\FosUser $fosusers)
+    public function addFosuser(\Stc\UserBundle\Entity\User $fosusers)
     {
         $this->fosusers[] = $fosusers;
 
@@ -1207,9 +1208,9 @@ class Bands
     /**
      * Remove fosusers
      *
-     * @param \Stc\BaseBundle\Entity\FosUser $fosusers
+     * @param \Stc\UserBundle\Entity\User $fosusers
      */
-    public function removeFosuser(\Stc\BaseBundle\Entity\FosUser $fosusers)
+    public function removeFosuser(\Stc\UserBundle\Entity\User $fosusers)
     {
         $this->fosusers->removeElement($fosusers);
     }

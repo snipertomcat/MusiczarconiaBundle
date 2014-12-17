@@ -85,7 +85,7 @@ Stc\MusiczarconiaBundle\Entity\Scheduler:
                     studio_id:
                         referenceColumnName: id
         users:
-            targetEntity: Stc\BaseBundle\Entity\FosUser
+            targetEntity: Stc\UserBundle\Entity\User
             inversedBy: schedulers
             joinTable:
                 name: scheduler_user

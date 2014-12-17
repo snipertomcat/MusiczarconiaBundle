@@ -304,16 +304,7 @@ Stc\MusiczarconiaBundle\Entity\Contacts:
         venue_id:
             type: integer
             nullable: true
-        band_id:
-            type: integer
-            nullable: true
     manyToOne:
-        venue:
-            targetEntity: Stc\MusiczarconiaBundle\Entity\Venues
-            inversedBy: contacts
-            joinColumn:
-                name: venue_id
-                referencedColumnName: id
         bands:
             targetEntity: Stc\MusiczarconiaBundle\Entity\Bands
             inversedBy: contacts

@@ -2,7 +2,7 @@
 {% block title %}Studio Reservation App{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
-    <link href="{{ asset('bundles/stcbase/css/main.css') }}" rel="stylesheet" />
+
 {% endblock %}
 {% block head %}
     {{ parent() }}
@@ -75,6 +75,19 @@
         });
 
     </script>
+    <script>
+        $(function() {
+            $( ".selectable").selectable();
+            $( ".header-no-select" ).selectable( "disable" );
+        });
+    </script>
+    <style>
+        #table tr { height: 34px;  }
+        .selectable .ui-selecting { background: #FECA40; }
+        .selectable .ui-selected { background: #F39814; color: white; }
+        .selectable { list-style-type: none; margin: 0; padding: 0; }
+        .selectable tr { height: 34px;  }
+    </style>
 {% endblock %}
 {% block content %}
     <div style="margin-top: 120px">
@@ -83,6 +96,7 @@
     {% block fos_user_content %}
         {{ parent() }}
     {% endblock %}
+
     <div class="reservation_table">
         <form id="dateSelectorForm" action="{{ path('get_daily_view') }}" method="post">
             <input id="dateclick" type="hidden" name="dateclick" />
@@ -91,39 +105,10 @@
     </div>
     <div style="float:left; ">
     <div id="daychart" class="daychart">
-        {#{% include 'StcMusiczarconiaBundle:Default:reservation_table.html.twig' %}#}
-        {{ render(url('show_reservation_table')) }}
+        {% include 'StcMusiczarconiaBundle:Default:reservation_table.html.twig' %}
+        {#{{ render(url('show_reservation_table')) }}#}
     </div>
-    <div id="carosel">
-        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-            </ol>
 
-            <!-- Wrapper for slides -->
-            <div class="carousel-inner">
-                <div class="item active">
-                    <img src="..." alt="...">
-                    <div class="carousel-caption">
-                        ...
-                    </div>
-                </div>
-                ...
-            </div>
-
-            <!-- Controls -->
-            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-            </a>
-            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right"></span>
-            </a>
-        </div>
-
-    </div>
     </div>
     </div>
 {% endblock %}

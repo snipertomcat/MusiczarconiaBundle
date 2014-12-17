@@ -1,4 +1,4 @@
-Stc\BaseBundle\Entity\FosUser:
+Stc\UserBundle\Entity\User:
     type: entity
     table: fos_user
     uniqueConstraints:
@@ -129,6 +129,9 @@ Stc\BaseBundle\Entity\FosUser:
         schedulers:
             targetEntity: Stc\MusiczarconiaBundle\Entity\Scheduler
             mappedBy: users
+        role:
+            targetEntity: Stc\UserBundle\Entity\Role
+            inversedBy: users
     lifecycleCallbacks:
         prePersist: [ setDateEnteredValue ]
         postPersist: [ setDateModifiedValue ]
