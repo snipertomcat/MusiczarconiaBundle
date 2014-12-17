@@ -17,7 +17,7 @@ body {
 }
 #res_table{
     width: 515px;
-    height: 500px;
+    height: 400px;
     overflow-y:scroll;
     padding-bottom:1px;
     padding-left:20px;
@@ -39,3 +39,8 @@ body {
 
 #header-no-select { list-style-type: none; margin: 0; padding: 0; }
 #header-no-select tr { height: 34px;  }
+
+.ui-state-disabled .ui-selectee .ui-selected {
+    background: black repeat;
+    opacity: 0;
+}

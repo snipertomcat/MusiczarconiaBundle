@@ -24,8 +24,18 @@
                           other: "attributes" }
                 });
                 request.done(function(msg) {
+                    //reset the appearance of the table cells:
+                    //$('.selectable tbody tr td').addClass('ui-state-default');
                     $.each(msg.htmlContent, function(idx, obj) {
+                        //change the cells black:
                         $('#'+obj).css('background-color','black');
+                        $('#'+obj).removeClass('ui-selectee');
+                        $('#'+obj).removeClass('ui-selectable');
+                        $('#'+obj).removeClass('ui-state-default');
+                        $('#'+obj).parent().removeClass('ui-selectee');
+                        $('#'+obj).parent().removeClass('ui-state-default');
+                        $('#'+obj).css('background-color: black; opacity: 0;');
+
                     });
                 });
             }
@@ -33,7 +43,9 @@
             //listen for form being submitted:
             $('#dateSelectorForm').submit(function() {
                 //set all <td>'s to have a white background (for each request)
-                $("td").removeAttr('style');
+                //$("td").removeClass('selectable');
+                //$("td").addClass('ui-selected');
+
                 //get url
                 var url=$('#dateSelectorForm').attr('action');
                 //start post request:
@@ -43,10 +55,17 @@
                     other:"attributes"
                 }, function(data) {
                     //response is in the data variable
+                    //once post returns, the table cells need to auto-reset back to original style,
+                    //then black out the specific dates taken
                     if(data.responseCode==200) {
+                        $('.selectable tbody tr td').addClass('ui-state-default');
                         $.each(data.htmlContent, function(idx, obj) {
-                            $('#'+obj).css('background-color','black');
-                            //$('#'+obj).html("<span style='background-color: black;'></span> ");
+                            $('#'+obj).removeClass('ui-selectee');
+                            $('#'+obj).removeClass('ui-selectable');
+                            $('#'+obj).removeClass('ui-state-default');
+                            $('#'+obj).parent().removeClass('ui-selectee');
+                            $('#'+obj).parent().removeClass('ui-state-default');
+                            $('#'+obj).css('background-color: black; opacity: 0;');
                         });
                     } else if (data.responseCode == '') {
                         $('#daychart').html('<h2>Bad Request</h2>');
@@ -87,6 +106,7 @@
         .selectable .ui-selected { background: #F39814; color: white; }
         .selectable { list-style-type: none; margin: 0; padding: 0; }
         .selectable tr { height: 34px;  }
+
     </style>
 {% endblock %}
 {% block content %}

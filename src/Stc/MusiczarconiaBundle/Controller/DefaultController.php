@@ -65,7 +65,7 @@ class DefaultController extends Controller
             }
         }
 
-        $return = array('responseCode' => '', 'htmlContent' => $htmlClasses);
+        $return = array('responseCode' => '200', 'htmlContent' => $htmlClasses);
         $return = json_encode($return);
 
         return new Response($return, 200, array('Content-Type' => 'application/json'));
