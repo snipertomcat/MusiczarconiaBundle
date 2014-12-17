@@ -26,6 +26,7 @@
                 request.done(function(msg) {
                     //reset the appearance of the table cells:
                     //$('.selectable tbody tr td').addClass('ui-state-default');
+                    $('.selectable tbody tr td').removeProp('style');
                     $.each(msg.htmlContent, function(idx, obj) {
                         //change the cells black:
                         $('#'+obj).css('background-color','black');
@@ -58,6 +59,7 @@
                     //once post returns, the table cells need to auto-reset back to original style,
                     //then black out the specific dates taken
                     if(data.responseCode==200) {
+                        $('.selectable tbody tr td').removeProp('style');
                         $('.selectable tbody tr td').addClass('ui-state-default');
                         $.each(data.htmlContent, function(idx, obj) {
                             $('#'+obj).removeClass('ui-selectee');
