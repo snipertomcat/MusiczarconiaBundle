@@ -43,3 +43,12 @@ body {
 .ui-selecting {
     background-color: #F39814;
 }
+
+.orange-submit-btn {
+    background-color: #F7AF39;
+    color: white;
+    width: 261px;
+    height: 50px;
+    font-size: 1.4em;
+    margin-top: 25px;
+}

@@ -8,6 +8,7 @@
     {{ parent() }}
     <script>
         $(document).ready(function() {
+
             /* This is called ONLY when the page loads: */
             //get the pre-populated date from the calender when the page loads:
             if ($('#dateSelectorForm').val() == '') {
@@ -62,13 +63,6 @@
                     //once post returns, the table cells need to auto-reset back to original style,
                     //then black out the specific dates taken
                     if(data.responseCode==200) {
-                        /*$('.selectable tbody tr td').removeProp('style');
-                        $('.selectable tbody tr td').css('background-color','');
-                        $('.selectable tbody tr td').addClass('ui-state-default');
-                        $('.selectable tbody tr td').removeClass('ui-selecting');
-                        $('.selectable tbody').removeClass('ui-selected');
-                        $('.selectable tbody').css('background-color','none');
-                        $('.selectable tbody tr').addClass('ui-selectable');*/
                         $('.selectable tbody tr td').css('background-color','');
                         $('.selectable tbody tr td').addClass('ui-state-default');
                         $('.selectable tbody tr td').addClass('ui-selectee');
@@ -76,12 +70,6 @@
 
                         //$('.selectable tbody tr td').removeClass('ui-selectee');
                         $.each(data.htmlContent, function(idx, obj) {
-                            /*$('#'+obj).removeClass('ui-selectee');
-                            $('#'+obj).removeClass('ui-selectable');
-                            $('#'+obj).removeClass('ui-state-default');
-                            $('#'+obj).parent().removeClass('ui-selectee');
-                            $('#'+obj).parent().removeClass('ui-state-default');
-                            $('#'+obj).css('background-color: black; opacity: 0;');*/
                             $('#'+obj).css('background-color','black');
                             $('#'+obj).removeClass('ui-selectee');
                             $('#'+obj).removeClass('ui-selectable');
@@ -102,25 +90,75 @@
                 });
                 return false;
             });
-        });
 
-        $(function() {
-            $( "#datepicker" ).datepicker({
-                inline: true,
-                onSelect: function(date) {
-                    $('#dateclick').val(date);
-                    $('#dateSelectorForm').submit();
-                    //window.location = 'http://'+location.host+'/stcbaseapp/web/app_dev.php/display/reservation?date='+date.replace(/\//g,'');
-                }
+
+            $(function() {
+                $( "#datepicker" ).datepicker({
+                    inline: true,
+                    onSelect: function(date) {
+                        $('#dateclick').val(date);
+                        $('#dateSelectorForm').submit();
+                        //window.location = 'http://'+location.host+'/stcbaseapp/web/app_dev.php/display/reservation?date='+date.replace(/\//g,'');
+                    }
+                });
+                return false;
             });
-            return false;
+
+
+            $('#timeSelectorForm').submit(function() {
+                if ($('#time_container').val() != '') {
+                    var url=$('#timeSelectorForm').attr('action');
+
+                    $.post(url, {
+                        formName:$('#timeSelectorForm').attr('id'),
+                        dateclick:$('#dateclick').attr('value'),
+                        time_container:$('#time_container').val()
+                    }, function(data) {
+                        //response is in the data variable
+                        if(data.responseCode==200) {
+                            var response = data.response;
+                            //alert(success);
+                        } else if (data.responseCode == '') {
+                            $('#daychart').html('<h2>Bad Request</h2>');
+                            $('#daychart').css('color','red');
+                        } else {
+                            //if we get here the controller didn't return a json_encoded resposne:
+                            alert("An unexpected error occured");
+                            //UN-COMMENT THIS FOR DEBUGGING:
+                            //$('#daychart').html(data);
+                        }
+                    });
+                    return false;
+                }
+
+            });
+
         });
 
     </script>
     <script>
         $(function() {
-            $( ".selectable").selectable();
+            $( ".selectable").selectable({
+
+                stop: function() {
+                    var result = $('#time_container').empty();
+
+                    $('.ui-selected', this).each(function() {
+                        var index = $(this).attr('id');
+                        if (index) {
+                            result.append(index + " ");
+                            var str = result.text();
+                            result.val(str);
+                        }
+                    });
+
+                    $('#time_container').value = result;
+                }
+
+            });
+
             $( ".header-no-select" ).selectable( "disable" );
+
         });
     </script>
     <style>
@@ -149,6 +187,11 @@
         <form id="dateSelectorForm" action="{{ path('get_daily_view') }}" method="post">
             <input id="dateclick" type="hidden" name="dateclick" />
             <div id="datepicker"></div>
+        </form>
+        <form id="timeSelectorForm" action="{{ path('set_appointment') }}" method="post">
+            <input id="time_container" type="text" style="display: none;"/>
+            {#<input id="dateselection" type="hidden" />#}
+            <button class="orange-submit-btn" type="submit">Schedule Selected Times</button>
         </form>
     </div>
 {% endblock %}

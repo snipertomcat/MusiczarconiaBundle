@@ -6,17 +6,6 @@
 {% endblock %}
 {% block head %}
     {{ parent() }}
-    <script>
-        $(function() {
-            $( "#datepicker" ).datepicker({
-                inline: true,
-                onSelect: function(date) {
-                    window.location = location.href+'/display/reservation?date='+date.replace(/\//g,'');
-                }
-            });
-        });
-
-    </script>
 {% endblock %}
 {% block content %}
     <!-- Datepicker -->

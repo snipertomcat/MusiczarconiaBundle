@@ -2,6 +2,7 @@
 
 namespace Stc\MusiczarconiaBundle\Controller;
 
+use Stc\MusiczarconiaBundle\Tools\DateTimeTools;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -70,6 +71,63 @@ class DefaultController extends Controller
 
         return new Response($return, 200, array('Content-Type' => 'application/json'));
     }
+
+    public function appointmentAction()
+    {
+        $request = $this->get('request');
+
+        $date = $request->request->get('dateclick');
+        $time = $request->request->get('time_container');
+        $time = explode(' ',$time);
+
+        array_pop($time);
+
+        $schedularRepository = $this->get('stc_musiczarconia.repository.scheduler');
+
+        $reservations = $schedularRepository->findReservationByDate($date);
+        //print_r($reservations);exit;
+        /*
+         *
+         */
+        //check database for reservations on given date:
+        if (!empty($reservations)) {
+
+            $error = '';
+            //check database for reservations on given time:
+            foreach ($reservations as $reservation) {
+
+                $convertedTimes = DateTimeTools::convertTimeToId($reservation);
+                $i = 0;
+
+                foreach ($time as $timeSlot) {
+                    if ($convertedTimes[$i] == $timeSlot) {
+                        $error = "You've selected a time that is already booked for that studio.\nPlease choose
+                                  another time slot.";
+                    }
+
+                    if ($error !== '') {
+                        $return = array('responseCode' => 200, 'error' => $error);
+                        $return = json_encode($return);
+                        return new Response($return, 200, array('Content-Type' => 'application/json'));
+                    } else {
+                        $i++;
+                    }
+                }
+            }
+        }
+
+        //At this point, there is not conflict in the schedule, proceed to save the appointment:
+
+        $schedularRepository->saveReservation($date, $time);
+
+        $return = array('responseCode' => 200, 'error' => '', 'response' => 'Thank you! Your time spot has been
+        reserved');
+        $return = json_encode($return);
+        return new Response($return, 200, array('Content-Type' => 'application/json'));
+
+
+    }
+
 
 
     public function dayviewAction()
