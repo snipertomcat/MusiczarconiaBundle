@@ -8,12 +8,10 @@ body {
     float: left;
 }
 .reservation_table {
-    margin-top: 100px;
     float: left;
 }
 .daychart {
     float:left;
-    margin-top: 100px;
 }
 #res_table{
     width: 515px;
