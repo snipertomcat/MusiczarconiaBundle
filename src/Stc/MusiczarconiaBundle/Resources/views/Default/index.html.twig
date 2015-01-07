@@ -119,7 +119,9 @@
                             if (error = data.error) {
                                 $('#daychart').append('<div class="alert alert-danger" role="alert" ' +
                                         'style="float:top;">'+error+'</div>');
-                                return;
+                                setTimeout(function() {
+                                    $('.alert').css('display','none');
+                                }, 3000);
                             }
                             var response = data.response;
                             $('#daychart').append('<div class="alert alert-success" role="alert" ' +

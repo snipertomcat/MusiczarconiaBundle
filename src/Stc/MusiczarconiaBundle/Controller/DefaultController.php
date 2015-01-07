@@ -70,7 +70,7 @@ class DefaultController extends Controller
             foreach ($time as $timeSlot) {
 
                 if (in_array($timeSlot,$htmlClasses)) {
-                    $error = "You've selected a time that is already booked for that studio.\nPlease choose
+                    $error = "You've selected a time that is already booked.\nPlease choose
                               another time slot.";
                 }
 
@@ -100,6 +100,7 @@ class DefaultController extends Controller
     public function dayviewAction()
     {
         $request = $this->get('request');
+
         $date = $request->request->get('dateclick'); //date will be in mm/dd/yyyy
 
         $schedulerRepository = $this->get('stc_musiczarconia.repository.scheduler');
