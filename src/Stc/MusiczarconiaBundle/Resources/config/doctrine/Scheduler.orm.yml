@@ -2,9 +2,6 @@ Stc\MusiczarconiaBundle\Entity\Scheduler:
     type: entity
     table: scheduler
     indexes:
-        IDX_463CEC18A76ED395:
-            columns:
-                - user_id
         IDX_463CEC18446F285F:
             columns:
                 - studio_id
@@ -19,7 +16,7 @@ Stc\MusiczarconiaBundle\Entity\Scheduler:
                 strategy: IDENTITY
     fields:
         date:
-            type: string
+            type: date
             nullable: false
             length: 30
             fixed: true
@@ -64,8 +61,11 @@ Stc\MusiczarconiaBundle\Entity\Scheduler:
             comment: ''
         user_id:
             type: integer
-            nullable: false
+            nullable: true
         studio_id:
+            type: integer
+            nullable: false
+        client_id:
             type: integer
             nullable: false
     manyToMany:
@@ -101,6 +101,17 @@ Stc\MusiczarconiaBundle\Entity\Scheduler:
                         referenceColumnName: id
                 inverseJoinColumns:
                     contact_id:
+                        referenceColumnName: id
+        clients:
+            targetEntity: Stc\MusiczarconiaBundle\Entity\Clients
+            inversedBy: schedulers
+            joinTable:
+                name: client_appointments
+                joinColumns:
+                    scheduler_id:
+                        referenceColumnName: id
+                inverseJoinColumns:
+                    client_id:
                         referenceColumnName: id
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]

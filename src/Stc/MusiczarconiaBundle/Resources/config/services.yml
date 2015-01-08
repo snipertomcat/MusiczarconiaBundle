@@ -2,6 +2,9 @@ parameters:
 #    stc_musiczarconia.example.class: Stc\MusiczarconiaBundle\Example
     stc_musiczarconia.repository.scheduler.class: Stc\MusiczarconiaBundle\Repository\SchedulerRepository
     stc_musiczarconia.repository.contacts.class: Stc\MusiczarconiaBundle\Repository\ContactRepository
+    stc_musiczarconia.repository.clients.class: Stc\MusiczarconiaBundle\Repository\ClientRepository
+    stc_musiczarconia.form.handler.appointments.class: Stc\MusiczarconiaBundle\Form\Handler\AppointmentFormHandler
+
 services:
 #    stc_musiczarconia.example:
 #        class: %stc_musiczarconia.example.class%
@@ -13,9 +16,20 @@ services:
 
     stc_musiczarconia.repository.contacts:
         class: %stc_musiczarconia.repository.contacts.class%
-        arguments:
-            - @doctrine.orm.entity_manager
         calls:
             - [setConn, [@doctrine.dbal.default_connection]]
         tags:
             - { name: stc_repository, repository: contacts}
+
+    stc_musiczarconia.repository.clients:
+        class: %stc_musiczarconia.repository.clients.class%
+        calls:
+            - [setConn, [@doctrine.dbal.default_connection]]
+        tags:
+            - { name: stc_repository, repository: clients}
+
+    stc_musiczarconia.form.handler.appointments:
+        class: %stc_musiczarconia.form.handler.appointments.class%
+        arguments:
+            - @stc_musiczarconia.repository.clients
+            - @stc_musiczarconia.repository.scheduler

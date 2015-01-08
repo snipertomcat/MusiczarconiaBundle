@@ -403,4 +403,42 @@ class Scheduler
     {
         // Add your code here
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $contacts;
+
+
+    /**
+     * Add contacts
+     *
+     * @param \Stc\MusicZarconiaBundle\Entity\Contacts $contacts
+     * @return Scheduler
+     */
+    public function addContact(\Stc\MusicZarconiaBundle\Entity\Contacts $contacts)
+    {
+        $this->contacts[] = $contacts;
+
+        return $this;
+    }
+
+    /**
+     * Remove contacts
+     *
+     * @param \Stc\MusicZarconiaBundle\Entity\Contacts $contacts
+     */
+    public function removeContact(\Stc\MusicZarconiaBundle\Entity\Contacts $contacts)
+    {
+        $this->contacts->removeElement($contacts);
+    }
+
+    /**
+     * Get contacts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getContacts()
+    {
+        return $this->contacts;
+    }
 }

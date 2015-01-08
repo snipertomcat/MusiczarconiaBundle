@@ -1279,4 +1279,49 @@ class Contacts
     {
         // Add your code here
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $schedulers;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->schedulers = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add schedulers
+     *
+     * @param \Stc\MusiczarconiaBundle\Entity\Scheduler $schedulers
+     * @return Contacts
+     */
+    public function addScheduler(\Stc\MusiczarconiaBundle\Entity\Scheduler $schedulers)
+    {
+        $this->schedulers[] = $schedulers;
+
+        return $this;
+    }
+
+    /**
+     * Remove schedulers
+     *
+     * @param \Stc\MusiczarconiaBundle\Entity\Scheduler $schedulers
+     */
+    public function removeScheduler(\Stc\MusiczarconiaBundle\Entity\Scheduler $schedulers)
+    {
+        $this->schedulers->removeElement($schedulers);
+    }
+
+    /**
+     * Get schedulers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSchedulers()
+    {
+        return $this->schedulers;
+    }
 }

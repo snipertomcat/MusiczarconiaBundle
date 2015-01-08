@@ -33,31 +33,5 @@ class ContactRepository extends EntityRepository
 
     public function saveContact($data)
     {
-        $this->conn->insert('contacts', array(
-            'id' => '',
-            'phone_mobile' => $data['phone'],
-            'first_name' => $data['fname'],
-            'last_name' => $data['lname'],
-            'inetmapaddress' => $data['email'],
-            'description' => $data['notes'],
-            'deleted' => 0
-        ));
-
-        return $this->conn->lastInsertId();
-
-        /*$contact = new Contacts();
-        $contact->setDateEntered(new \DateTime('now'))
-            ->setDeleted(0)
-            ->setFirstName($data['fname'])
-            ->setLastName($data['lname'])
-            ->setPhoneMobile($data['phone'])
-            ->setInetmapaddress($data['email'])
-            ->setDescription($data['notes']);
-
-        $this->em->persist($contact);
-
-        $this->em->flush();
-
-        return $contact->getId();*/
     }
 }

@@ -56,12 +56,10 @@ class DefaultController extends Controller
         $time = explode(' ',$time);
 //print_r($time);exit;
         $schedularRepository = $this->get('stc_musiczarconia.repository.scheduler');
+        $clientRepository = $this->get('stc_musiczarconia.repository.clients');
 
         $reservations = $schedularRepository->findReservationByDate($date);
         //print_r($reservations);exit;
-        /*
-         *
-         */
         //check database for reservations on given date:
         if (!empty($reservations)) {
 
@@ -84,15 +82,18 @@ class DefaultController extends Controller
             }
 
         }
+        //@todo put this into the handler or create an event listener instead of inline with controller:
+        $requestVars = $request->request->getIterator()->getArrayCopy();
+        $scheduleInsertId = $schedularRepository->saveReservation($date, $time);
+        $requestVars['scheduler_id'] = $scheduleInsertId;
+
+        $appointmentHandler = $this->get('stc_musiczarconia.form.handler.appointments');
+        $appointmentHandler->handle($requestVars);
+
 
         //At this point, there is not conflict in the schedule, proceed to save the appointment:
 
-        //@todo put this into the handler or create an event listener instead of inline with controller:
-        $requestVars = $request->request->getIterator()->getArrayCopy();
-        //$appointmentHandler = new AppointmentFormHandler($requestVars);
-        $contactRepository = $this->get('stc_musiczarconia.repository.contacts');
-        $newContactId = $contactRepository->saveContact($requestVars);
-/*
+ /*
         $fname = $request->request->get('fname');
         $lname = $request->request->get('lname');
         $phone = $request->request->get('phone');
@@ -108,7 +109,6 @@ class DefaultController extends Controller
 */
         //$handler = new ContactFormHandler($data);
 
-        $newScheduleId = $schedularRepository->saveReservation($date, $time);
 
         //$this->get('doctrine.orm.entity_manager')->getConnection()->insert('scheduler_contact',
         //    ['scheduler_id'=>$newScheduleId, 'contact_id'=>$newContactId]);
