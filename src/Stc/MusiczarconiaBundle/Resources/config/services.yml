@@ -1,7 +1,7 @@
 parameters:
 #    stc_musiczarconia.example.class: Stc\MusiczarconiaBundle\Example
     stc_musiczarconia.repository.scheduler.class: Stc\MusiczarconiaBundle\Repository\SchedulerRepository
-
+    stc_musiczarconia.repository.contacts.class: Stc\MusiczarconiaBundle\Repository\ContactRepository
 services:
 #    stc_musiczarconia.example:
 #        class: %stc_musiczarconia.example.class%
@@ -10,3 +10,12 @@ services:
         class: %stc_musiczarconia.repository.scheduler.class%
         tags:
             - { name: stc_repository, repository: scheduler }
+
+    stc_musiczarconia.repository.contacts:
+        class: %stc_musiczarconia.repository.contacts.class%
+        arguments:
+            - @doctrine.orm.entity_manager
+        calls:
+            - [setConn, [@doctrine.dbal.default_connection]]
+        tags:
+            - { name: stc_repository, repository: contacts}

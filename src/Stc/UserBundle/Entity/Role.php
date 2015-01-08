@@ -2,6 +2,7 @@
 
 namespace Stc\UserBundle\Entity;
 
+use Stc\UserBundle\Entity\User as User;
 use Symfony\Component\Security\Core\Role\RoleInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -86,10 +87,10 @@ class Role implements RoleInterface
     /**
      * Add users
      *
-     * @param \Stc\BaseBundle\Entity\User $users
+     * @param User $users
      * @return Role
      */
-    public function addUser(\Stc\BaseBundle\Entity\User $users)
+    public function addUser(User $users)
     {
         $this->users[] = $users;
 
@@ -99,9 +100,9 @@ class Role implements RoleInterface
     /**
      * Remove users
      *
-     * @param \Stc\BaseBundle\Entity\User $users
+     * @param User $users
      */
-    public function removeUser(\Stc\BaseBundle\Entity\User $users)
+    public function removeUser(User $users)
     {
         $this->users->removeElement($users);
     }
@@ -109,7 +110,7 @@ class Role implements RoleInterface
     /**
      * Get users
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getUsers()
     {

@@ -55,5 +55,7 @@ class SchedulerRepository extends EntityRepository
             'updated_at' => '',
             'status' => 1
         ));
+
+        return $this->conn->lastInsertId();
     }
 }

@@ -8,10 +8,6 @@ Stc\MusiczarconiaBundle\Entity\Scheduler:
         IDX_463CEC18446F285F:
             columns:
                 - studio_id
-    uniqueConstraints:
-        UNIQ_463CEC18A0E239DE:
-            columns:
-                - confirmation_code
     id:
         id:
             type: integer
@@ -94,6 +90,17 @@ Stc\MusiczarconiaBundle\Entity\Scheduler:
                         referenceColumnName: id
                 inverseJoinColumns:
                     user_id:
+                        referenceColumnName: id
+        contacts:
+            targetEntity: Stc\MusiczarconiaBundle\Entity\Contacts
+            inversedBy: scheduler
+            joinTable:
+                name: scheduler_contact
+                joinColumns:
+                    scheduler_id:
+                        referenceColumnName: id
+                inverseJoinColumns:
+                    contact_id:
                         referenceColumnName: id
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]

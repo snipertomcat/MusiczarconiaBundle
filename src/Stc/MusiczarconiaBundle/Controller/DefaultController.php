@@ -2,6 +2,8 @@
 
 namespace Stc\MusiczarconiaBundle\Controller;
 
+use Stc\MusiczarconiaBundle\Form\Handler\AppointmentFormHandler;
+use Stc\MusiczarconiaBundle\Form\Handler\ContactFormHandler;
 use Stc\MusiczarconiaBundle\Tools\DateTimeTools;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -85,7 +87,31 @@ class DefaultController extends Controller
 
         //At this point, there is not conflict in the schedule, proceed to save the appointment:
 
-        $schedularRepository->saveReservation($date, $time);
+        //@todo put this into the handler or create an event listener instead of inline with controller:
+        $requestVars = $request->request->getIterator()->getArrayCopy();
+        //$appointmentHandler = new AppointmentFormHandler($requestVars);
+        $contactRepository = $this->get('stc_musiczarconia.repository.contacts');
+        $newContactId = $contactRepository->saveContact($requestVars);
+/*
+        $fname = $request->request->get('fname');
+        $lname = $request->request->get('lname');
+        $phone = $request->request->get('phone');
+        $email = $request->request->get('email');
+        $notes = $request->request->get('notes');
+
+        $data = ['fname' => $fname,
+            'lname' => $lname,
+            'phone' => $phone,
+            'email' => $email,
+            'notes' => $notes
+        ];
+*/
+        //$handler = new ContactFormHandler($data);
+
+        $newScheduleId = $schedularRepository->saveReservation($date, $time);
+
+        //$this->get('doctrine.orm.entity_manager')->getConnection()->insert('scheduler_contact',
+        //    ['scheduler_id'=>$newScheduleId, 'contact_id'=>$newContactId]);
 
         $return = array('responseCode' => 200, 'error' => '', 'response' => 'Thank you! Your time spot has been
         reserved');

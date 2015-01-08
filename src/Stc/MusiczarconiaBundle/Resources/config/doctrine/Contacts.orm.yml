@@ -29,7 +29,7 @@ Stc\MusiczarconiaBundle\Entity\Contacts:
                 - assigned_user_id
     id:
         id:
-            type: string
+            type: integer
             nullable: false
             length: 36
             fixed: true
@@ -311,6 +311,10 @@ Stc\MusiczarconiaBundle\Entity\Contacts:
             joinColumn:
                 name: band_id
                 referencedColumnName: id
+    manyToMany:
+        schedulers:
+            targetEntity: Stc\MusiczarconiaBundle\Entity\Scheduler
+            mappedBy: contacts
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue, setCreatedByValue ]
         preUpdate: [ setUpdatedAtValue, setModifiedUserId ]

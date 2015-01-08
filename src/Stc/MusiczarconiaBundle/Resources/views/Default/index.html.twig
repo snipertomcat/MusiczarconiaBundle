@@ -112,7 +112,12 @@
                     $.post(url, {
                         formName:$('#timeSelectorForm').attr('id'),
                         dateclick:$('#dateclick').attr('value'),
-                        time_container:$('#time_container').val()
+                        time_container:$('#time_container').val(),
+                        fname:$('#fname').val(),
+                        lname:$('#lname').val(),
+                        phone:$('#phone').val(),
+                        email:$('#email').val(),
+                        notes:$('#notes').val(),
                     }, function(data) {
                         //response is in the data variable
                         if(data.responseCode==200) {
@@ -179,7 +184,17 @@
         .selectable .ui-selected { background: #F39814; color: white; }
         .selectable { list-style-type: none; margin: 0; padding: 0; }
         .selectable tr { height: 34px;  }
-
+        label{
+            display: inline-block;
+            float: left;
+            clear: left;
+            width: 250px;
+            text-align: right;
+        }
+        input {
+            display: inline-block;
+            float: left;
+        }
     </style>
 {% endblock %}
 {% block content %}
@@ -196,14 +211,30 @@
 
     </div>
     <div class="reservation_table">
-        <form id="dateSelectorForm" action="{{ path('get_daily_view') }}" method="post">
-            <input id="dateclick" type="hidden" name="dateclick" />
-            <div id="datepicker"></div>
-        </form>
-        <form id="timeSelectorForm" action="{{ path('set_appointment') }}" method="post">
-            <input id="time_container" type="text" style="display: none;"/>
-            {#<input id="dateselection" type="hidden" />#}
-            <button class="orange-submit-btn" type="submit">Schedule Selected Times</button>
-        </form>
+        <table>
+            <tr><td>
+                <form id="dateSelectorForm" action="{{ path('get_daily_view') }}" method="post">
+                    <input id="dateclick" type="hidden" name="dateclick" />
+                </form>
+            </td>
+            <td>
+                <div id="datepicker"></div>
+                <form id="timeSelectorForm" action="{{ path('set_appointment') }}" method="post">
+
+                    <br />
+                    <input id="time_container" type="text" style="display: none;"/>
+                    <div style="margin-left:-170px;">
+                        <label for="fname">First Name:</label><input id="fname" type="text" required="required" />
+                        <label for="lname">Last Name :</label><input id="lname" type="text" required="required" />
+                        <label for="phone">Cell Phone:</label><input id="phone" type="text" maxlength="10" required="required" />
+                        <label for="email">Email:</label><input id="email" type="email" maxlength="200" required="required" />
+                        <label for="notes">Notes:</label><input id="notes" type="textarea" />
+                    </div>
+                    <br />
+                    {#<input id="dateselection" type="hidden" />#}
+                    <button class="orange-submit-btn" type="submit">Schedule Selected Times</button>
+                </form>
+            </td></tr>
+        </table>
     </div>
 {% endblock %}
