@@ -74,6 +74,16 @@ class Scheduler
      */
     private $users;
 
+    private  $client_id;
+    /**
+     * @var integer
+     */
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $clients;
+
     /**
      * Constructor
      */
@@ -441,4 +451,38 @@ class Scheduler
     {
         return $this->contacts;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getClientId()
+    {
+        return $this->client_id;
+    }
+
+    /**
+     * @param mixed $client_id
+     */
+    public function setClientId($client_id)
+    {
+        $this->client_id = $client_id;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getClients()
+    {
+        return $this->clients;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $clients
+     */
+    public function setClients($clients)
+    {
+        $this->clients = $clients;
+    }
+
+
 }
